@@ -21,6 +21,21 @@ def line(start, end):
     down()
     goto(end.x, end.y)
 
+def pentagon(start, end):
+    """Draw pentagon from start to end."""
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+
+    side_length = end.x - start.x
+    angle = 72  
+
+    for _ in range(5):
+        forward(side_length)
+        left(angle)
+
+    end_fill()
 
 def square(start, end):
     """Draw square from start to end."""
@@ -52,12 +67,48 @@ def circle(start, end):
 
 def rectangle(start, end):
     """Draw rectangle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+    
+    # Draw the four sides of the rectangle
+    forward(end.x - start.x)  # Width
+    left(90)
+    forward(end.y - start.y)  # Height
+    left(90)
+    forward(end.x - start.x)  # Width
+    left(90)
+    forward(end.y - start.y)  # Height
+    left(90)
+    
+    end_fill()
 
 
 def triangle(start, end):
     """Draw triangle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+    
+    # Draw three sides to form a triangle
+    for count in range(3):
+        if count == 0:
+            # First side: horizontal from start to end
+            forward(end.x - start.x)
+        elif count == 1:
+            # Second side: diagonal back to original y-level
+            left(120)
+            forward(abs(end - start))
+        else:
+            # Third side: back to starting point
+            left(120)
+            forward(abs(end - start))
+    
+    end_fill()
+
+
 
 
 def tap(x, y):
@@ -89,9 +140,11 @@ onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('orange'), 'O')
 onkey(lambda: color('red'), 'R')
+onkey(lambda: color("yellow"), "Y")
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
 onkey(lambda: store('shape', circle), 'c')
 onkey(lambda: store('shape', rectangle), 'r')
 onkey(lambda: store('shape', triangle), 't')
+onkey(lambda: store('shape', pentagon), 'p')
 done()
