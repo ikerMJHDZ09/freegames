@@ -21,6 +21,21 @@ def line(start, end):
     down()
     goto(end.x, end.y)
 
+def pentagon(start, end):
+    """Draw pentagon from start to end."""
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+
+    side_length = end.x - start.x
+    angle = 72  
+
+    for _ in range(5):
+        forward(side_length)
+        left(angle)
+
+    end_fill()
 
 def square(start, end):
     """Draw square from start to end."""
@@ -79,9 +94,11 @@ onkey(lambda: color('white'), 'W')
 onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
+onkey(lambda: color("yellow"), "Y")
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
 onkey(lambda: store('shape', circle), 'c')
 onkey(lambda: store('shape', rectangle), 'r')
 onkey(lambda: store('shape', triangle), 't')
-done()
+onkey(lambda: store('shape', pentagon), 'p')
+done():
